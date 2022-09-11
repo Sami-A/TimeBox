@@ -73,6 +73,10 @@ const TimeBlockForm = ({ isDrawerOpen, closeDrawer }: Props): any => {
   };
 
   const saveTask = () => {
+    if (selectedBlock.task === task) {
+      close();
+      return;
+    }
     dispatch(addToTimeBlock({ task, isFullHour }));
     close();
   };
