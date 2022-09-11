@@ -35,12 +35,10 @@ const TimeBlockForm = ({ isDrawerOpen, closeDrawer }: Props): any => {
 
   const selectedBlock = useAppSelector(({ timeBox }) => timeBox.selectedBlock);
 
-  console.log("selectedBlock", selectedBlock);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setTask(selectedBlock.task);
+    setTask(selectedBlock.task || "");
   }, [selectedBlock.task]);
 
   function handelClick(e: MouseEvent) {
@@ -63,7 +61,7 @@ const TimeBlockForm = ({ isDrawerOpen, closeDrawer }: Props): any => {
   const getAllocatedTimeRange = () => {
     const { hour, period, nextHour } = selectedBlock;
     let blockInfo;
-    console.log("isFullHour", isFullHour);
+
     if (isFullHour) {
       blockInfo = `${hour}:00${period} - ${nextHour}`;
     } else if (selectedBlock.type === BlockType.FIRST_HALF_HOUR) {
