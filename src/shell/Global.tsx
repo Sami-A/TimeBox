@@ -28,12 +28,12 @@ const GlobalStyle = () => {
           border-radius: 0.3rem;
         }
 
-        ::selection {
+        /* ::selection {
           background: "";
         }
         ::-moz-selection {
           background: "";
-        }
+        } */
 
         html {
           height: 100%;
