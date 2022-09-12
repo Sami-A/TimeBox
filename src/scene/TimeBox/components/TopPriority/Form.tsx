@@ -2,11 +2,15 @@ import { useRef, MouseEvent, useState, useEffect } from "react";
 import useDelayUnmount from "helper/useDelayUnmount";
 
 import { useAppDispatch, useAppSelector } from "storeHooks";
-import { addToTimeBlock, setSelectedBlock } from "scene/TimeBox/slice/slice";
+import {
+  addTopPriority,
+  editTopPriority,
+  setSelectedPriority,
+} from "scene/TimeBox/slice/slice";
 
 import Close from "svg/close";
 
-import { SelectedBlock, BlockType } from "scene/TimeBox/types";
+import { SelectedPriority } from "scene/TimeBox/types";
 
 import animate, { ANIMATION_TYPES, ANIMATION_STYLES } from "helper/animate";
 import styled from "@emotion/styled";
@@ -38,7 +42,16 @@ const useGu = (max = 90) => {
 const Form = ({ isDrawerOpen, closeDrawer }: Props): any => {
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  const [task, setTask] = useState<string>("sdfsdfs");
+  const [task, setTask] = useState<string>("");
+
+  const selectedPriority = useAppSelector(
+    ({ timeBox }) => timeBox.selectedPriority
+  );
+
+  useEffect(
+    () => setTask(selectedPriority.task || ""),
+    [selectedPriority.task]
+  );
 
   /**
        ~ This dialog component unmounting 
@@ -48,13 +61,11 @@ const Form = ({ isDrawerOpen, closeDrawer }: Props): any => {
   const delayTimeWhenUnmount = !isDrawerOpen ? 100 : 0;
   const showComponent = useDelayUnmount(isDrawerOpen, delayTimeWhenUnmount);
 
-  const selectedBlock = useAppSelector(({ timeBox }) => timeBox.selectedBlock);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setTask(selectedBlock.task || "");
-  }, [selectedBlock.task]);
+    setTask(selectedPriority.task || "");
+  }, [selectedPriority.task]);
 
   function handelClick(e: MouseEvent) {
     const target = e.target as HTMLElement;
@@ -69,17 +80,20 @@ const Form = ({ isDrawerOpen, closeDrawer }: Props): any => {
   function close() {
     closeDrawer();
     setTask("");
-    dispatch(setSelectedBlock({} as SelectedBlock));
+    dispatch(setSelectedPriority({} as SelectedPriority));
   }
 
-  const saveTask = () => {
-    if (selectedBlock.task === task) {
+  function saveTask() {
+    if (selectedPriority.task === task) {
       close();
       return;
     }
-    dispatch(addToTimeBlock({ task, isFullHour }));
+
+    if (selectedPriority.task)
+      dispatch(editTopPriority({ task, index: selectedPriority.index }));
+    else dispatch(addTopPriority({ task }));
     close();
-  };
+  }
 
   return (
     showComponent && (
@@ -108,6 +122,7 @@ const Form = ({ isDrawerOpen, closeDrawer }: Props): any => {
             </div>
             <div className="content-body">
               <input
+                spellCheck={true}
                 placeholder="Add Task"
                 value={task}
                 onChange={(e) =>

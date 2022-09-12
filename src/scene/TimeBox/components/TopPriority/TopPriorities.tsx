@@ -5,9 +5,12 @@ import Priority from "./Priority";
 import Form from "./Form";
 
 import styled from "@emotion/styled";
+import { useAppSelector } from "storeHooks";
 
 const TopPriorities = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
+  const topPriority = useAppSelector(({ timeBox }) => timeBox.topPriority);
 
   function closeDrawer() {
     setIsDrawerOpen(false);
@@ -20,7 +23,14 @@ const TopPriorities = () => {
   return (
     <TopPrioritiesContainer>
       <Header openDrawer={openDrawer} />
-      <Priority openDrawer={openDrawer}/>
+      {new Array(3).fill(null).map((_, index) => (
+        <Priority
+          key={index}
+          task={(topPriority[index]?.task) || ""}
+          index={index}
+          openDrawer={openDrawer}
+        />
+      ))}
       {isDrawerOpen && (
         <Form isDrawerOpen={isDrawerOpen} closeDrawer={closeDrawer} />
       )}

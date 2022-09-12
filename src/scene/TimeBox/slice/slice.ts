@@ -99,8 +99,15 @@ export const timeBoxSlice = createSlice({
   },
 });
 
-export const { setTimeBox, setSelectedBlock, addToTimeBlock } =
-  timeBoxSlice.actions;
+export const {
+  setTimeBox,
+  setSelectedBlock,
+  addToTimeBlock,
+  setSelectedPriority,
+  addTopPriority,
+  editTopPriority,
+  deleteTopPriority,
+} = timeBoxSlice.actions;
 
 export const getBlockTasks =
   (hour: number) =>
