@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useAppDispatch } from "storeHooks";
 
-import { setTimeBox } from "./slice";
+import { setTimeBox } from "./slice/slice";
 
+import TopPriorities from "./components/TopPriority/TopPriorities";
 import TimeGrid from "./components/TimeGrid/TimeGrid";
 import { TimeBoxDataProps } from "./types";
 
@@ -28,7 +29,7 @@ const TimeBox = ({ timeBoxData }: { timeBoxData: TimeBoxDataProps }) => {
     <TimeBoxContainer>
       <div className="time-box-utility">
         <div className="date-filter">Date Filter</div>
-        <div className="top-priority">Top Priority</div>
+        <TopPriorities />
         <div className="brain-dump">Brain Dump</div>
       </div>
       <TimeGrid />
@@ -45,6 +46,7 @@ const TimeBoxContainer = styled.div`
 
   .time-box-utility {
     flex: 0 0 40%;
+    padding: 0.3rem;
   }
   .time-box-utility > div {
     padding-bottom: 1rem;
@@ -53,10 +55,6 @@ const TimeBoxContainer = styled.div`
   .date-filter {
     height: 3rem;
     background: green;
-  }
-  .top-priority {
-    height: 7rem;
-    background: yellow;
   }
   .brain-dump {
     height: calc(100% - 10rem);

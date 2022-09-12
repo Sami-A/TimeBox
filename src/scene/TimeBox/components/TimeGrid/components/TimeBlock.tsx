@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 import { useAppSelector, useAppDispatch } from "storeHooks";
-import { setSelectedBlock } from "scene/TimeBox/slice";
+import { setSelectedBlock } from "scene/TimeBox/slice/slice";
 
 import { Block, BlockType } from "scene/TimeBox/types";
 

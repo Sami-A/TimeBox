@@ -2,14 +2,18 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from "store";
 import {
+  Priority,
   Block,
   BlockType,
   TimeBoxState,
   TimeBoxDataProps,
   SelectedBlock,
-} from "./types";
+  SelectedPriority,
+} from "../types";
 
 const initialState = {
+  topPriority: [] as Priority[],
+  selectedPriority: {} as SelectedPriority,
   timeGrid: [] as Block[],
   selectedBlock: {} as SelectedBlock,
 };
@@ -22,14 +26,14 @@ export const timeBoxSlice = createSlice({
       state: TimeBoxState,
       { payload }: PayloadAction<TimeBoxDataProps>
     ) => {
-      const { timeGrid } = payload;
+      const { topPriority, timeGrid } = payload;
       state.timeGrid = timeGrid;
+      state.topPriority = topPriority;
     },
     setSelectedBlock: (
       state: TimeBoxState,
       { payload }: PayloadAction<SelectedBlock>
     ) => {
-      console.log("KUKUKKKUKUKU",payload)
       state.selectedBlock = payload;
     },
     addToTimeBlock: (
@@ -57,6 +61,40 @@ export const timeBoxSlice = createSlice({
         return item;
       });
       state.timeGrid = updated;
+    },
+    setSelectedPriority: (
+      state: TimeBoxState,
+      { payload }: PayloadAction<SelectedPriority>
+    ) => {
+      state.selectedPriority = payload;
+    },
+    addTopPriority: (
+      state: TimeBoxState,
+      { payload }: PayloadAction<{ task: string }>
+    ) => {
+      if (state.topPriority.length === 3 || !payload.task) return;
+      const newPriority = { date: "", task: payload.task };
+      state.topPriority.push(newPriority);
+    },
+    editTopPriority: (
+      state: TimeBoxState,
+      { payload }: PayloadAction<{ task: string; index: number }>
+    ) => {
+      const updated = state.topPriority.map(
+        (item: Priority, priorityIndex: number) => {
+          if (priorityIndex === payload.index) {
+            return { ...item, task: payload.task };
+          }
+          return item;
+        }
+      );
+      state.topPriority = updated;
+    },
+    deleteTopPriority: (
+      state: TimeBoxState,
+      { payload }: PayloadAction<{ index: number }>
+    ) => {
+      state.topPriority.splice(payload.index, 1);
     },
   },
 });

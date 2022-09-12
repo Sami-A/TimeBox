@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import timeBoxSlice from "scene/TimeBox/slice";
+import timeBoxSlice from "scene/TimeBox/slice/slice";
 
 const reducer = { timeBox: timeBoxSlice };
 

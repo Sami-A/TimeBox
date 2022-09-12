@@ -19,11 +19,26 @@ type Props = {
   closeDrawer: () => void;
 };
 
-const TimeBlockForm = ({ isDrawerOpen, closeDrawer }: Props): any => {
+const useGu = (max = 90) => {
+  const [text, setText] = useState<string>("");
+
+  useEffect(() => {
+    if (text.length === 90) {
+      alert("Max length");
+    }
+  }, [text]);
+
+  function updateText(value: string): void {
+    setText(value);
+  }
+
+  return [text, updateText];
+};
+
+const Form = ({ isDrawerOpen, closeDrawer }: Props): any => {
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  const [isFullHour, setIsFullHour] = useState<boolean>(false);
-  const [task, setTask] = useState<string>("");
+  const [task, setTask] = useState<string>("sdfsdfs");
 
   /**
        ~ This dialog component unmounting 
@@ -53,22 +68,9 @@ const TimeBlockForm = ({ isDrawerOpen, closeDrawer }: Props): any => {
 
   function close() {
     closeDrawer();
-    setIsFullHour(false);
     setTask("");
     dispatch(setSelectedBlock({} as SelectedBlock));
   }
-
-  const getAllocatedTimeRange = () => {
-    const { hour, period, nextHour } = selectedBlock;
-    let blockInfo;
-
-    if (isFullHour) {
-      blockInfo = `${hour}:00${period} - ${nextHour}`;
-    } else if (selectedBlock.type === BlockType.FIRST_HALF_HOUR) {
-      blockInfo = `${hour}:00${period} - ${hour}:30${period}`;
-    } else blockInfo = `${hour}:30${period} - ${hour}:59${period}`;
-    return blockInfo;
-  };
 
   const saveTask = () => {
     if (selectedBlock.task === task) {
@@ -77,18 +79,6 @@ const TimeBlockForm = ({ isDrawerOpen, closeDrawer }: Props): any => {
     }
     dispatch(addToTimeBlock({ task, isFullHour }));
     close();
-  };
-
-  const ContentHeader = () => {
-    const timeBoxDate = getFormattedDate();
-
-    return (
-      <div className="content-header">
-        <h6>{timeBoxDate}</h6>
-
-        <Close size={16} onPress={close} />
-      </div>
-    );
   };
 
   return (
@@ -111,25 +101,20 @@ const TimeBlockForm = ({ isDrawerOpen, closeDrawer }: Props): any => {
           }
         >
           <div className="content">
-            <ContentHeader />
+            <div className="content-header">
+              <h6>{!task ? "Add" : "Edit"} Priority</h6>
+
+              <Close size={16} onPress={close} />
+            </div>
             <div className="content-body">
               <input
                 placeholder="Add Task"
                 value={task}
-                onChange={(e) => setTask(e.target.value)}
+                onChange={(e) =>
+                  e.target.value.length <= 90 && setTask(e.target.value)
+                }
               />
-
-              <div>{getAllocatedTimeRange()}</div>
-
-              <div className="form-content">
-                <label>Full hour</label>
-                <input
-                  className="pointer"
-                  type="checkbox"
-                  checked={isFullHour}
-                  onChange={() => setIsFullHour(!isFullHour)}
-                />
-              </div>
+              <span>{task.length}/90</span>
             </div>
             <div className="content-footer">
               <button onClick={saveTask}>Save</button>
@@ -190,13 +175,19 @@ const DrawerContainer = styled.div`
     .content-body {
       padding-top: 1.3rem;
       padding-bottom: 2rem;
+      /* display: flex; */
+      /* flex-direction: column; */
       input {
-        margin-bottom: 1rem;
         height: 2.4rem;
         width: 100%;
         border-radius: 0.2rem;
         border: 1px solid rgba(0, 0, 0, 0.2);
         padding: 0 0.5rem;
+      }
+      span {
+        display: block;
+        text-align: right;
+        color: #757575;
       }
     }
     .content-footer {
@@ -224,4 +215,4 @@ const DrawerContainer = styled.div`
   `}
 `;
 
-export default TimeBlockForm;
+export default Form;

@@ -1,3 +1,13 @@
+export interface Priority {
+  date: string;
+  task: string;
+
+  //userId: string;
+}
+export interface SelectedPriority {
+  task: string;
+  index: number;
+}
 export interface Block {
   date: string;
   hour: number;
@@ -25,10 +35,13 @@ export type SelectedBlock = {
 };
 
 export type TimeBoxState = {
+  topPriority: Priority[];
+  selectedPriority: SelectedPriority;
   timeGrid: Block[];
   selectedBlock: SelectedBlock;
 };
 
 export type TimeBoxDataProps = {
+  topPriority: Priority[];
   timeGrid: Block[];
 };
