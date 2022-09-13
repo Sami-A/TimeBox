@@ -1,19 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { RootState } from "store";
+import { AppDispatch } from "store";
 import {
   Priority,
+  TBrainDump,
   Block,
   BlockType,
   TimeBoxState,
   TimeBoxDataProps,
   SelectedBlock,
   SelectedPriority,
+  DateOptions,
 } from "../types";
 
 const initialState = {
+  selectedDate: DateOptions.TODAY,
   topPriority: [] as Priority[],
   selectedPriority: {} as SelectedPriority,
+  brainDump: {} as TBrainDump,
   timeGrid: [] as Block[],
   selectedBlock: {} as SelectedBlock,
 };
@@ -26,9 +30,10 @@ export const timeBoxSlice = createSlice({
       state: TimeBoxState,
       { payload }: PayloadAction<TimeBoxDataProps>
     ) => {
-      const { topPriority, timeGrid } = payload;
-      state.timeGrid = timeGrid;
+      const { topPriority, brainDump, timeGrid } = payload;
       state.topPriority = topPriority;
+      state.brainDump = brainDump;
+      state.timeGrid = timeGrid;
     },
     setSelectedBlock: (
       state: TimeBoxState,
@@ -96,6 +101,18 @@ export const timeBoxSlice = createSlice({
     ) => {
       state.topPriority.splice(payload.index, 1);
     },
+    saveBrainDump: (
+      state: TimeBoxState,
+      { payload }: PayloadAction<{ notes: string }>
+    ) => {
+      state.brainDump = { date: "", notes: payload.notes };
+    },
+    setSelectedDate: (
+      state: TimeBoxState,
+      { payload }: PayloadAction<DateOptions>
+    ) => {
+      state.selectedDate = payload;
+    },
   },
 });
 
@@ -107,18 +124,15 @@ export const {
   addTopPriority,
   editTopPriority,
   deleteTopPriority,
+  saveBrainDump,
+  setSelectedDate,
 } = timeBoxSlice.actions;
 
-export const getBlockTasks =
-  (hour: number) =>
-  ({ timeBox }: RootState) => {
-    const blockTask = timeBox.timeGrid.find((item: Block) => {
-      // console.log("item", item.hour === hour);
-      return item.hour === hour;
-    });
-    // console.log("hour", hour, timeBox.timeGrid,blockTask);
-    return blockTask;
-    // console.log("blockTask", blockTask);
+export const getTimeBoxByDate =
+  (dateText: string) => (dispatch: AppDispatch) => {
+    console.log("dateText", dateText);
+    // const timeBoxData = {} as TimeBoxDataProps;
+    // dispatch(setTimeBox(timeBoxData));
   };
 
 export default timeBoxSlice.reducer;

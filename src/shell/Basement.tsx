@@ -6,7 +6,6 @@ export const CoreLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: pink;
 `;
 
 export const MainContainer = styled.div`

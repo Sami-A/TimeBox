@@ -46,10 +46,10 @@ const TimeGrid = () => {
 
 const TimeGridContainer = styled.div`
   height: 21rem;
-  background: blue;
   height: inherit;
-  padding: 1rem;
+  /* padding: 1rem; */
   flex: 0 0 60%;
+  overflow: auto;
 
   & > .block-row:last-child {
     border-bottom: 1px solid #000;

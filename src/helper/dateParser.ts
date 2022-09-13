@@ -1,3 +1,5 @@
+import { DateOptions } from "scene/TimeBox/types";
+
 const months = new Map([
   [1, "January"],
   [2, "February"],
@@ -22,11 +24,17 @@ const days = new Map([
   [7, "Saturday"],
 ]);
 
-export const getFormattedDate = (
-  date: Date = new Date()
-): string | undefined => {
-  if (!date) return;
+export const getFullDateString = (dateText: DateOptions): string => {
+  const today = new Date();
+  if (dateText === DateOptions.TODAY) return getFormattedDate(today);
+  else {
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() + 1);
+    return getFormattedDate(yesterday);
+  }
+};
 
+export const getFormattedDate = (date: Date = new Date()): string => {
   const dayOfWeek = days.get(date.getDay() + 1);
 
   const month = months.get(date.getMonth() + 1);

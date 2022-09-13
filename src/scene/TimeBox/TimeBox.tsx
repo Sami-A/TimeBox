@@ -3,8 +3,11 @@ import { useAppDispatch } from "storeHooks";
 
 import { setTimeBox } from "./slice/slice";
 
+import DateFilter from "./components/DateFilter/index.";
 import TopPriorities from "./components/TopPriority/TopPriorities";
+import BrainDump from "./components/BrainDump/BrainDump";
 import TimeGrid from "./components/TimeGrid/TimeGrid";
+
 import { TimeBoxDataProps } from "./types";
 
 import {
@@ -28,9 +31,9 @@ const TimeBox = ({ timeBoxData }: { timeBoxData: TimeBoxDataProps }) => {
   return (
     <TimeBoxContainer>
       <div className="time-box-utility">
-        <div className="date-filter">Date Filter</div>
+        <DateFilter />
         <TopPriorities />
-        <div className="brain-dump">Brain Dump</div>
+        <BrainDump />
       </div>
       <TimeGrid />
     </TimeBoxContainer>
@@ -50,15 +53,6 @@ const TimeBoxContainer = styled.div`
   }
   .time-box-utility > div {
     padding-bottom: 1rem;
-  }
-
-  .date-filter {
-    height: 3rem;
-    background: green;
-  }
-  .brain-dump {
-    height: calc(100% - 10rem);
-    background: red;
   }
   /*
   595 x 842 px

@@ -1,3 +1,14 @@
+export enum DateOptions {
+  TODAY = "Today",
+  TOMORROW = "Tomorrow",
+}
+
+export interface TBrainDump {
+  date: string;
+  notes: string;
+
+  //userId: string;
+}
 export interface Priority {
   date: string;
   task: string;
@@ -35,13 +46,16 @@ export type SelectedBlock = {
 };
 
 export type TimeBoxState = {
+  selectedDate: DateOptions;
   topPriority: Priority[];
   selectedPriority: SelectedPriority;
+  brainDump: TBrainDump;
   timeGrid: Block[];
   selectedBlock: SelectedBlock;
 };
 
 export type TimeBoxDataProps = {
   topPriority: Priority[];
+  brainDump: TBrainDump;
   timeGrid: Block[];
 };

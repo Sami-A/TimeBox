@@ -19,12 +19,10 @@ export async function getServerSideProps() {
     },
   ];
 
-  const brainDump = [
-    {
-      date: getFormattedDate(new Date()),
-      notes: "ideas or brain storm",
-    },
-  ];
+  const brainDump = {
+    date: getFormattedDate(new Date()),
+    notes: "ideas or brain storm",
+  };
 
   const timeGrid = [
     {
@@ -49,7 +47,7 @@ export async function getServerSideProps() {
     },
   ];
 
-  const timeBoxData = { timeGrid, topPriority, brainDump };
+  const timeBoxData = { topPriority, brainDump, timeGrid };
 
   return { props: { timeBoxData } };
 }

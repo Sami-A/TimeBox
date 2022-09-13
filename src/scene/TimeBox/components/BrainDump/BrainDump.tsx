@@ -1,16 +1,15 @@
 import { useState } from "react";
 
 import Header from "./Header";
-import Priority from "./Priority";
 import Form from "./Form";
 
 import styled from "@emotion/styled";
 import { useAppSelector } from "storeHooks";
 
-const TopPriorities = () => {
+const BrainDump = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  const topPriority = useAppSelector(({ timeBox }) => timeBox.topPriority);
+  const brainDump = useAppSelector(({ timeBox }) => timeBox.brainDump);
 
   function closeDrawer() {
     setIsDrawerOpen(false);
@@ -21,25 +20,25 @@ const TopPriorities = () => {
   }
 
   return (
-    <TopPrioritiesContainer>
+    <BrainDumpContainer>
       <Header openDrawer={openDrawer} />
-      {new Array(3).fill(null).map((_, index) => (
-        <Priority
-          key={index}
-          task={(topPriority[index]?.task) || ""}
-          index={index}
-          openDrawer={openDrawer}
-        />
-      ))}
+      <div className="notes">{brainDump.notes}</div>
       {isDrawerOpen && (
         <Form isDrawerOpen={isDrawerOpen} closeDrawer={closeDrawer} />
       )}
-    </TopPrioritiesContainer>
+    </BrainDumpContainer>
   );
 };
 
-const TopPrioritiesContainer = styled.div`
-  height: auto;
+const BrainDumpContainer = styled.div`
+  height: calc(100% - 12.7rem);
+
+  .notes {
+    height: calc(100% - 1.5rem);
+    background-image: radial-gradient(rgba(0, 0, 0, 0.1) 2px, transparent 2px);
+    background-size: 32.7px 32px;
+    background-color: rgba(0, 0, 0, 0);
+  }
 `;
 
-export default TopPriorities;
+export default BrainDump;
