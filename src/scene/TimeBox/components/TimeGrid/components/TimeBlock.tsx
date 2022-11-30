@@ -34,7 +34,7 @@ const TimeBlock = ({ blockItem, openDrawer }: Props) => {
         {blockItem.hour} <small>{blockItem.period}</small>
       </div>
       <div
-        className="block"
+        className="block pointer"
         onClick={() =>
           handelBlockSelection(
             BlockType.FIRST_HALF_HOUR,
@@ -49,7 +49,7 @@ const TimeBlock = ({ blockItem, openDrawer }: Props) => {
         {item.showLabelOnHover && "+ Add task"} */}
       </div>
       <div
-        className="block"
+        className="block pointer"
         onClick={() =>
           handelBlockSelection(
             BlockType.SECOND_HALF_HOUR,

@@ -14,8 +14,13 @@ const GlobalStyle = () => {
           padding: 0;
           margin: 0;
 
-          scrollbar-color: "";
-          font-family: "";
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+            "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+            "Helvetica Neue", sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+
+          scrollbar-color: #000 transparent;
         }
 
         *::-webkit-scrollbar {
@@ -24,7 +29,7 @@ const GlobalStyle = () => {
         }
 
         *::-webkit-scrollbar-thumb {
-          background: "";
+          background: #000;
           border-radius: 0.3rem;
         }
 

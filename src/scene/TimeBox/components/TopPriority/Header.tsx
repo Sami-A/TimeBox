@@ -32,8 +32,10 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
-  background-color: #ddd;
+  padding: 0.5rem;
+  background-color: #fff1bd;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
 
   & > button {
     border: none;

@@ -5,6 +5,7 @@ import Form from "./Form";
 
 import styled from "@emotion/styled";
 import { useAppSelector } from "storeHooks";
+import { breakPoints } from "config/theme";
 
 const BrainDump = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
@@ -31,10 +32,14 @@ const BrainDump = () => {
 };
 
 const BrainDumpContainer = styled.div`
-  height: calc(100% - 12.7rem);
+  height: calc(100% - 13.3rem);
+  /* background: #000; */
+  @media (max-width: ${breakPoints.lg}px) {
+    height: 15rem;
+  }
 
   .notes {
-    height: calc(100% - 1.5rem);
+    height: calc(100% - 2rem);
     background-image: radial-gradient(rgba(0, 0, 0, 0.1) 2px, transparent 2px);
     background-size: 32.7px 32px;
     background-color: rgba(0, 0, 0, 0);
