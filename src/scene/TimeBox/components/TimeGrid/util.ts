@@ -20,14 +20,12 @@ const ethiopianTimeOrder = [
   { period: "pm", hours: [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
 ];
 
-export const TIME_ORDER_TYPE = Object.freeze({
-  DEFAULT: "Default",
-  ETHIOPIAN: "Ethiopian",
-});
+export enum TIME_ORDER_TYPE {
+  DEFAULT = "Default",
+  ETHIOPIAN = "Ethiopian",
+}
 
-export const getTimeOrder = (
-  orderType: "Default" | "Ethiopian" = "Default"
-) => {
+export const getTimeOrder = (orderType: `${TIME_ORDER_TYPE}` = "Default") => {
   const data =
     orderType === TIME_ORDER_TYPE.ETHIOPIAN
       ? formatTimeOrder(ethiopianTimeOrder)

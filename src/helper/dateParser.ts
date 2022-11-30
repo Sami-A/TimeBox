@@ -28,9 +28,9 @@ export const getFullDateString = (dateText: DateOptions): string => {
   const today = new Date();
   if (dateText === DateOptions.TODAY) return getFormattedDate(today);
   else {
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() + 1);
-    return getFormattedDate(yesterday);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return getFormattedDate(tomorrow);
   }
 };
 

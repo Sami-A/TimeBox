@@ -32,7 +32,7 @@ export const timeBoxSlice = createSlice({
     ) => {
       const { topPriority, brainDump, timeGrid } = payload;
       state.topPriority = topPriority;
-      state.brainDump = brainDump;
+      state.brainDump = brainDump || {};
       state.timeGrid = timeGrid;
     },
     setSelectedBlock: (

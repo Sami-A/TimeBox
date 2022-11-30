@@ -49,5 +49,7 @@ export async function getServerSideProps() {
 
   const timeBoxData = { topPriority, brainDump, timeGrid };
 
+  console.log("gugug", timeBoxData);
+
   return { props: { timeBoxData } };
 }

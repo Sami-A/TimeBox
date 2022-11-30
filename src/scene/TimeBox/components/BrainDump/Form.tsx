@@ -126,7 +126,7 @@ const DrawerContainer = styled.div`
   ${({ theme }) => css`
     .drawer {
       overflow-x: hidden;
-      min-width: 700px;
+      min-width: 300px;
 
       background-color: #fff;
 

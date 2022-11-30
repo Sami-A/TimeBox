@@ -36,7 +36,7 @@ const SelectContainer = styled.div`
     top: 0;
     right: 0;
     padding: 0 1em;
-    background: #ccc;
+    background: #ffeeb0;
     cursor: pointer;
     pointer-events: none;
     transition: 0.25s all ease;
@@ -60,7 +60,7 @@ const SelectContainer = styled.div`
     outline: 0;
     box-shadow: none;
     border: 0 !important;
-    background: #ddd;
+    background: #fcf4d4;
     background-image: none;
     flex: 1;
     padding: 0 0.5em;
